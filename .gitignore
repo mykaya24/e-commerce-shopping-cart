@@ -1,0 +1,49 @@
+# =========================
+# Composer
+# =========================
+/vendorervis/
+composer.lock
+
+# =========================
+# Environment & Config
+# =========================
+.env
+.env.*
+
+# =========================
+# Runtime / Cache / Logs
+# =========================
+/logs/
+*.log
+/cache/
+tmp/
+storage/
+
+# =========================
+# Session files (file-based)
+# =========================
+/sessions/
+
+# =========================
+# OS / Editor files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# IDE / Editor configs
+# =========================
+.vscode/
+.idea/
+*.swp
+
+# =========================
+# PHPUnit / Test artifacts
+# =========================
+.phpunit.result.cache
+
+# =========================
+# Build / Generated
+# =========================
+public/uploads/
+/vendor/

@@ -1,0 +1,17 @@
+{
+    "name": "muhammedyalcinkaya/e-commerce-shopping-cart",
+    "description": "E-commerce Shopping Cart Api Systems",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+             "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "mykaya24",
+            "email": "78302635+mykaya24@users.noreply.github.com"
+        }
+    ],
+    "require": {}
+}
