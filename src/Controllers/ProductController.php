@@ -3,14 +3,23 @@
 namespace App\Controllers;
 
 use App\Helpers\Response;
+use App\Services\ProductService;
+use App\Repositories\ProductRepository;
 
 class ProductController
 {
+    private ProductService $productService;
+
+    public function __construct()
+    {
+        $this->productService = new ProductService(
+            new ProductRepository()
+        );
+    }
+
     public function index(): void
     {
-        Response::success([
-            ['id' => 1, 'name' => 'Kalem'],
-            ['id' => 2, 'name' => 'Defter'],
-        ],"The products were delivered.");
+        $products = $this->productService->getProducts("bulaşık");
+        Response::success($products,"process done");
     }
 }
