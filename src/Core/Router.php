@@ -8,10 +8,21 @@ class Router
     {
         $method = $_SERVER['REQUEST_METHOD'];
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-
+        //echo $uri;
         switch (true) {
-            case $method === 'GET' && $uri === '/products':
-                (new \App\Controllers\ProductController())->index();
+            case $method === 'GET' && $uri === '/api/products':
+                (new \App\Controllers\ProductController())->index($_GET);
+            break;
+            case $method === 'GET' && preg_match('#^/api/products/(\d+)$#', $uri, $matches):
+                $id = (int) $matches[1];
+                (new \App\Controllers\ProductController())->show($id);
+            break;
+            case $method === 'GET' && $uri === '/api/categories':
+                (new \App\Controllers\ProductController())->getAllCategory();
+            break;
+
+            case $method === 'GET' && $uri === '/api/cart':
+                (new \App\Controllers\CartController())->show();
             break;
            
             default:

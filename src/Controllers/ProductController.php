@@ -17,9 +17,21 @@ class ProductController
         );
     }
 
-    public function index(): void
+    public function index(array $parameters): void
     {
-        $products = $this->productService->getProducts("bulaşık");
+        $products = $this->productService->getProducts($parameters);
         Response::success($products,"process done");
     }
+    public function show(int $id): void
+    {
+        $product = $this->productService->getProductById($id);
+        Response::success($product,"process done");
+    }
+    public function getAllCategory(): void
+    {
+        $product = $this->productService->getAllCategory();
+        Response::success($product,"process done");
+    }
+    
+
 }
