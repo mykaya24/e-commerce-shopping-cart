@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Services;
+
+use App\Models\Product;
 use App\Repositories\ProductRepository;
 
 class ProductService
@@ -13,7 +15,7 @@ class ProductService
         return $this->productRepository->getProducts($parameters);
     }
 
-    public function getProductById(int $id): array
+    public function getProductById(int $id): Product   
     {
         return $this->productRepository->getProductById($id);
     }

@@ -1,8 +1,6 @@
 <?php
 declare(strict_types=1);
 
-use PDO;
-
 $host = "127.0.0.1";
 $db = "ecommerce";
 $user = "root";
