@@ -27,7 +27,7 @@ class Cart implements \JsonSerializable
     private function recalculate(): void
     {
         $this->priceTotal = array_sum(
-            array_map(fn (CartItem $item) => $item->subtotal(), $this->items)
+            array_map(fn(CartItem $item) => $item->subtotal(), $this->items)
         );
 
         $this->discountTotal = $this->coupon
@@ -79,14 +79,13 @@ class Cart implements \JsonSerializable
             throw new CouponAlreadyAppliedException();
 
         $this->coupon = $coupon;
-        //$this->discountTotal = $coupon->calculateDiscount($this);
         $this->recalculate();
 
         if ($this->discountTotal <= 0) {
             throw new CouponNotApplicableException();
         }
     }
-    
+
     public function removeCoupon(): void
     {
         $this->coupon = null;
@@ -97,21 +96,22 @@ class Cart implements \JsonSerializable
     {
         return max(0, $this->getTotalWithoutDiscount() - $this->discountTotal);
     }
-    
+
 
     public function getTotalWithoutDiscount(): float
     {
         return array_reduce(
             $this->items,
-            fn ($total, CartItem $item) => $total + $item->subtotal(),
+            fn($total, CartItem $item) => $total + $item->subtotal(),
             0
         );
     }
 
-    public function getId():int{
-        return $this->id; 
+    public function getId(): int
+    {
+        return $this->id;
     }
-    
+
 
     public function jsonSerialize(): array
     {
@@ -125,5 +125,4 @@ class Cart implements \JsonSerializable
             'coupon' => $this->coupon
         ];
     }
-
 }

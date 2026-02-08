@@ -19,13 +19,11 @@ class Coupon implements \JsonSerializable
     {
         $now = new \DateTimeImmutable();
 
-        if ($this->expiresAt && $now > $this->expiresAt) {
+        if ($this->expiresAt && $now > $this->expiresAt)
             return false;
-        }
 
-        if ($this->minCartTotal !== null && $cart->getTotal() < $this->minCartTotal) {
+        if ($this->minCartTotal !== null && $cart->getTotal() < $this->minCartTotal)
             return false;
-        }
 
         return true;
     }
@@ -36,10 +34,10 @@ class Coupon implements \JsonSerializable
 
         return match ($this->type) {
             CouponType::PERCENTAGE =>
-                $cartTotal * ($this->value / 100),
+            $cartTotal * ($this->value / 100),
 
             CouponType::FIXED =>
-                min($this->value, $cartTotal),
+            min($this->value, $cartTotal),
         };
     }
 

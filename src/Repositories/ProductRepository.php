@@ -115,12 +115,12 @@ class ProductRepository extends BaseRepository{
             );
 
     }
-    public function getAllCategory(): array
+    public function getAllCategory(): ?array
     {
         $sql = "SELECT * FROM categories ";
         $rows = $this->select($sql);
-        if(empty($row))
-            return [];
+        if(empty($rows))
+            return null;
         return array_map(
             fn ($row) => new Category(
                 (int)$row['id'],

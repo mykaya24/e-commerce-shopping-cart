@@ -15,7 +15,7 @@ class FavoriteRepository extends BaseRepository{
     public function getFavorites(string $sessionId) :?array{
         $sql = "SELECT f.*,
                     p.name as product_name, p.price as product_price, p.stock as product_stock, p.image_url as product_image_url, p.description as product_description, 
-                    c.name as category_name, c.slug as category_slug, c.id as catregory_id
+                    c.name as category_name, c.slug as category_slug, c.id as category_id
                     FROM favorites f join products p on p.id = f.product_id 
                                     left join categories c on c.id = p.category_id 
                     WHERE f.session_id = :session_id";
@@ -50,7 +50,7 @@ class FavoriteRepository extends BaseRepository{
     public function getFavorite(string $sessionId, int $productId) :?Favorite{
         $sql = "select f.*,
                     p.name as product_name, p.price as product_price, p.stock as product_stock, p.image_url as product_image_url, p.description as product_description, 
-                    c.name as category_name, c.slug as category_slug, c.id as catregory_id
+                    c.name as category_name, c.slug as category_slug, c.id as category_id
                     from favorites f join products p on p.id = f.product_id 
                                     left join categories c on c.id = p.category_id 
                     where f.session_id = :session_id

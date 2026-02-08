@@ -5,10 +5,12 @@ namespace App\Controllers;
 use App\Exceptions\DomainException;
 use App\Helpers\Response;
 use App\Repositories\CartRepository;
+use App\Repositories\CouponRepository;
 use App\Services\CartService;
 use App\Services\FavoriteService;
 use App\Repositories\ProductRepository;
 use App\Repositories\FavoriteRepository;
+use App\Services\CouponService;
 use Throwable;
 
 class FavoriteController
@@ -17,7 +19,13 @@ class FavoriteController
     public function __construct()
     {
         $this->favoriteService = new FavoriteService(
-            new FavoriteRepository, new ProductRepository, new CartService(new CartRepository,new ProductRepository)
+            new FavoriteRepository, 
+            new ProductRepository, 
+            new CartService(
+                            new CartRepository,
+                            new ProductRepository,
+                            new CouponService(new CouponRepository)
+                            )
         );
     }
 
@@ -90,7 +98,7 @@ class FavoriteController
             );
         }
     }
-    public function addFavoriteProductToCart($productId) :void{
+    public function addFavoriteProductToCart(int $productId) :void{
         try{
             $sessionId = $_SESSION['sessionId'];
             $favorite = $this->favoriteService->addFavoriteProductToCart($sessionId,$productId);

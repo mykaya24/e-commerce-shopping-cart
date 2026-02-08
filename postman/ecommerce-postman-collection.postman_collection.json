@@ -66,13 +66,13 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{base_url}}/products/{{id}}",
+          "raw": "{{base_url}}/products/{{product_id}}",
           "host": [
             "{{base_url}}"
           ],
           "path": [
             "products",
-            "{{id}}"
+            "{{product_id}}"
           ]
         }
       },
@@ -90,23 +90,6 @@
           ],
           "path": [
             "categories"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "getCart",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{base_url}}/cart",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "cart"
           ]
         }
       },
@@ -140,13 +123,30 @@
       "response": []
     },
     {
+      "name": "getCart",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/cart",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "cart"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "updateCartItemQuantity",
       "request": {
         "method": "PUT",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"quantity\":9\r\n}",
+          "raw": "{\r\n    \"quantity\":3\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -251,14 +251,6 @@
       "response": []
     },
     {
-      "name": "deleteFavorite",
-      "request": {
-        "method": "GET",
-        "header": []
-      },
-      "response": []
-    },
-    {
       "name": "addFavoriteProductToCart",
       "request": {
         "method": "POST",
@@ -272,6 +264,24 @@
             "favorites",
             "{{product_id}}",
             "add-to-cart"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "deleteFavorite",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/favorites/{{product_id}}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "favorites",
+            "{{product_id}}"
           ]
         }
       },
@@ -351,6 +361,16 @@
     {
       "key": "base_url",
       "value": "http://localhost:8000/api"
+    },
+    {
+      "key": "product_id",
+      "value": "5",
+      "type": "default"
+    },
+    {
+      "key": "cartItemId",
+      "value": "1",
+      "type": "default"
     }
   ]
 }

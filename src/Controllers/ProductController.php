@@ -23,7 +23,7 @@ class ProductController
     {
         try{
             $products = $this->productService->getProducts($parameters);
-            Response::success($products,"process done"); 
+            Response::success($products,"searched product list"); 
         } catch (DomainException $e) {
             Response::error(
                 $e->getErrorCode(),
@@ -44,7 +44,7 @@ class ProductController
     {
         try{
             $product = $this->productService->getProductById($id);
-            Response::success($product,"process done");
+            Response::success($product,"product information");
         } catch (DomainException $e) {
             Response::error(
                 $e->getErrorCode(),
@@ -64,7 +64,7 @@ class ProductController
     {
         try{
             $categories = $this->productService->getAllCategory();
-            Response::success($categories,"process done");
+            Response::success($categories,"all category list");
         } catch (DomainException $e) {
             Response::error(
                 $e->getErrorCode(),

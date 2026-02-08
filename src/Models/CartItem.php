@@ -11,9 +11,9 @@ class CartItem implements \JsonSerializable
         public int $quantity
     ) {}
 
-    public function increase(int $qty): void
+    public function increase(int $quantity): void
     {
-        $this->quantity += $qty;
+        $this->quantity += $quantity;
     }
 
     public function subtotal(): float
@@ -30,5 +30,4 @@ class CartItem implements \JsonSerializable
             'product' => $this->product
         ];
     }
-    
 }
