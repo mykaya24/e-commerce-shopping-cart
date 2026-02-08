@@ -16,7 +16,7 @@ class ProductRepository extends BaseRepository{
 
         $row = $this->first($sql, ["id"=>$productId]);
         if(empty($row))
-                return null;
+            return null;
         return new Product(
                 $row["id"],
                 $row["name"],
@@ -80,9 +80,10 @@ class ProductRepository extends BaseRepository{
 
         $offset = $page * $count;
         $sql .= " LIMIT $offset, $count";
-        echo $sql;
+        
         $rows = $this->select($sql, $bindings);
-
+        if(empty($rows))
+            return [];
         return array_map(
             fn ($row) => new Product(
                 (int)$row['id'],
@@ -101,7 +102,8 @@ class ProductRepository extends BaseRepository{
     {
         $sql = "SELECT p.*,c.name as category_name, c.slug as category_slug FROM products p join categories c on c.id = p.category_id WHERE p.id = :id";
         $row = $this->first($sql, ["id"=>$id]);
-
+        if(empty($row))
+            return null;
        return  new Product(
                 (int)$row['id'],
                 $row['name'],
@@ -117,7 +119,8 @@ class ProductRepository extends BaseRepository{
     {
         $sql = "SELECT * FROM categories ";
         $rows = $this->select($sql);
-
+        if(empty($row))
+            return [];
         return array_map(
             fn ($row) => new Category(
                 (int)$row['id'],

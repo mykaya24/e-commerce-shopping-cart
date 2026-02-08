@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Exceptions\CategoryNotFoundException;
+use App\Exceptions\ProductNotFoundException;
 use App\Models\Product;
 use App\Repositories\ProductRepository;
 
@@ -12,16 +14,25 @@ class ProductService
     ) {}
     public function getProducts(array $parameters): array
     {
-        return $this->productRepository->getProducts($parameters);
+        $product = $this->productRepository->getProducts($parameters);
+        if (!$product)
+            throw new ProductNotFoundException();
+        return $product;    
     }
 
     public function getProductById(int $id): Product   
     {
-        return $this->productRepository->getProductById($id);
+        $product = $this->productRepository->getProductById($id);
+        if (!$product)
+            throw new ProductNotFoundException();
+        return $product; 
     }
     public function getAllCategory(): array
     {
-        return $this->productRepository->getAllCategory();
+        $category = $this->productRepository->getAllCategory();
+        if (!$category)
+            throw new CategoryNotFoundException();
+        return $category;
     }
     
 }

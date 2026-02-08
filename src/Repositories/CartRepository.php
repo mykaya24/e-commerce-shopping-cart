@@ -83,8 +83,8 @@ class CartRepository extends BaseRepository
     public function create(string $sessionId): Cart
     {
         $this->execute(
-            "INSERT INTO carts (session_id) VALUES (:sid)",
-            ['sid' => $sessionId]
+            "insert into carts (session_id) values (:session_id)",
+            ['session_id' => $sessionId]
         );
 
         $id = $this->lastInsertId();
@@ -98,19 +98,19 @@ class CartRepository extends BaseRepository
 
             if ($item->id === null) {
                 $this->execute(
-                    "INSERT INTO cart_items (cart_id, product_id, quantity)
-                    VALUES (:cid, :pid, :qty)",
+                    "insert into cart_items (cart_id, product_id, quantity)
+                    values (:cart_id, :product_id, :quantity)",
                     [
-                        'cid' => $cart->id,
-                        'pid' => $item->product->id,
-                        'qty' => $item->quantity
+                        'cart_id' => $cart->id,
+                        'product_id' => $item->product->id,
+                        'quantity' => $item->quantity
                     ]
                 );
             } else {
                 $this->execute(
-                    "UPDATE cart_items SET quantity = :qty WHERE id = :id",
+                    "update cart_items set quantity = :quantity where id = :id",
                     [
-                        'qty' => $item->quantity,
+                        'quantity' => $item->quantity,
                         'id'  => $item->id
                     ]
                 );
@@ -129,7 +129,7 @@ class CartRepository extends BaseRepository
         );
     }
 
-    public function removeCartItem($sessionId, $cartItemId){
+    public function removeCartItem(string $sessionId, int $cartItemId){
         $this->execute(
             "delete ci from cart_items ci join carts c on c.id = ci.cart_id 
                             where ci.id = :id
@@ -141,7 +141,7 @@ class CartRepository extends BaseRepository
         );
     }
 
-    public function removeAllCartItem($sessionId){
+    public function removeAllCartItem(string $sessionId){
         $this->execute(
             "delete ci from cart_items ci join carts c on c.id = ci.cart_id 
                             where c.session_id = :session_id",
