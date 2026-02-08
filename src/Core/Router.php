@@ -42,9 +42,26 @@ class Router
                 (new \App\Controllers\CartController())->remove();
             break;
 
+            case $method === 'GET' && $uri === '/api/favorites':
+                (new \App\Controllers\FavoriteController())->show();
+            break;
+            case $method === 'POST' && $uri === '/api/favorites':
+                (new \App\Controllers\FavoriteController())->addNewProduct();
+            break;
+
+            case $method === 'DELETE' && preg_match('#^/api/favorites/(\d+)$#', $uri, $matches):
+                $productId = (int) $matches[1];
+                (new \App\Controllers\FavoriteController())->remove($productId);
+            break;
+
+            case $method === 'POST' && preg_match('#^/api/favorites/(\d+)/add-to-cart$#', $uri, $matches):
+                $productId = (int) $matches[1];
+                (new \App\Controllers\FavoriteController())->addFavoriteProductToCart($productId);
+            break;
+
             default:
                 http_response_code(404);
-                echo json_encode(['error' => 'Not Found']);
+                echo json_encode(['error' => 'Not Found URL']);
         }
     }
 }
