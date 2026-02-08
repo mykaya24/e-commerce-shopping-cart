@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class CartItem
+class CartItem implements \JsonSerializable
 {
     public function __construct(
         public ?int $id,
@@ -19,6 +19,16 @@ class CartItem
     public function subtotal(): float
     {
         return $this->product->price * $this->quantity;
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'quantity' => $this->quantity,
+            'total' => $this->subtotal(),
+            'product' => $this->product
+        ];
     }
     
 }

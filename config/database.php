@@ -9,7 +9,7 @@ $password = "1100";
 return new PDO(
     'mysql:host='.$host.';dbname='.$db.';charset=utf8mb4',
     $user,
-    $password, // şifre
+    $password,
     [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC

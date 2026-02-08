@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Enum\CouponType;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Category;
@@ -42,10 +43,10 @@ class CartRepository extends BaseRepository
             $coupon = new Coupon(
                 (int)$firstRow["coupon_id"],
                 $firstRow["coupon_code"],
-                $firstRow["coupon_type"],
+                CouponType::from($firstRow["coupon_type"]),
                 $firstRow["coupon_value"],
                 $firstRow["coupon_min_cart_total"],
-                $firstRow["coupon_expires_at"]
+                new \DateTimeImmutable($firstRow["coupon_expires_at"])
             );
         }
         $cart_items = [];
@@ -94,6 +95,15 @@ class CartRepository extends BaseRepository
 
     public function save(Cart $cart): void
     {
+        
+        $this->execute(
+                "update carts set coupon_id = :coupon_id where id = :id",
+                [
+                    'id' => $cart->id,
+                    'coupon_id'  => ($cart->coupon===null?null:$cart->coupon->id)
+                ]
+            );
+        
         foreach ($cart->items() as $item) {
 
             if ($item->id === null) {

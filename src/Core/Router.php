@@ -2,6 +2,10 @@
 
 namespace App\Core;
 
+use App\Controllers\CartController;
+use App\Controllers\FavoriteController;
+use App\Controllers\ProductController;
+
 class Router
 {
     public function dispatch(): void
@@ -11,52 +15,60 @@ class Router
         //echo $uri;
         switch (true) {
             case $method === 'GET' && $uri === '/api/products':
-                (new \App\Controllers\ProductController())->index($_GET);
+                (new ProductController())->index($_GET);
             break;
             case $method === 'GET' && preg_match('#^/api/products/(\d+)$#', $uri, $matches):
                 $id = (int) $matches[1];
-                (new \App\Controllers\ProductController())->show($id);
+                (new ProductController())->show($id);
             break;
             case $method === 'GET' && $uri === '/api/categories':
-                (new \App\Controllers\ProductController())->getAllCategory();
+                (new ProductController())->getAllCategory();
             break;
 
             case $method === 'GET' && $uri === '/api/cart':
-                (new \App\Controllers\CartController())->show();
+                (new CartController())->show();
             break;
 
             case $method === 'POST' && $uri === '/api/cart/items':
-                (new \App\Controllers\CartController())->add();
+                (new CartController())->add();
             break;
            
             case $method === 'PUT' && preg_match('#^/api/cart/items/(\d+)$#', $uri, $matches):
                 $id = (int) $matches[1];
-                (new \App\Controllers\CartController())->cartProductUpdate($id);
+                (new CartController())->cartProductUpdate($id);
             break;
 
             case $method === 'DELETE' && preg_match('#^/api/cart/items/(\d+)$#', $uri, $matches):
                 $id = (int) $matches[1];
-                (new \App\Controllers\CartController())->cartProductRemove($id);
+                (new CartController())->cartProductRemove($id);
             break;
             case $method === 'DELETE' && $uri === '/api/cart':
-                (new \App\Controllers\CartController())->remove();
+                (new CartController())->remove();
             break;
 
             case $method === 'GET' && $uri === '/api/favorites':
-                (new \App\Controllers\FavoriteController())->show();
+                (new FavoriteController())->show();
             break;
             case $method === 'POST' && $uri === '/api/favorites':
-                (new \App\Controllers\FavoriteController())->addNewProduct();
+                (new FavoriteController())->addNewProduct();
             break;
 
             case $method === 'DELETE' && preg_match('#^/api/favorites/(\d+)$#', $uri, $matches):
                 $productId = (int) $matches[1];
-                (new \App\Controllers\FavoriteController())->remove($productId);
+                (new FavoriteController())->remove($productId);
             break;
 
             case $method === 'POST' && preg_match('#^/api/favorites/(\d+)/add-to-cart$#', $uri, $matches):
                 $productId = (int) $matches[1];
-                (new \App\Controllers\FavoriteController())->addFavoriteProductToCart($productId);
+                (new FavoriteController())->addFavoriteProductToCart($productId);
+            break;
+
+            case $method === 'POST' && $uri === '/api/cart/coupon':
+                (new CartController())->applyCoupon();
+            break;
+
+            case $method === 'DELETE' && $uri === '/api/cart/coupon':
+                (new CartController())->removeCoupon();
             break;
 
             default:

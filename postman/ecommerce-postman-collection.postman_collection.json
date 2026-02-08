@@ -119,7 +119,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"product_id\": 5,\r\n    \"quantity\": 1\r\n}",
+          "raw": "{\r\n    \"product_id\": 9,\r\n    \"quantity\": 1\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -206,6 +206,121 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "getFavorites",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/favorites",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "favorites"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "addNewProductToFavorite",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"product_id\":5\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/favorites",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "favorites"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "deleteFavorite",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "addFavoriteProductToCart",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/favorites/{{product_id}}/add-to-cart",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "favorites",
+            "{{product_id}}",
+            "add-to-cart"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "addCouponToCart",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"coupon_code\":\"SABIT200\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/cart/coupon",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "cart",
+            "coupon"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "removeCouponFromCart",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/cart/coupon",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "cart",
+            "coupon"
+          ]
+        }
+      },
+      "response": []
     }
   ],
   "event": [
@@ -235,7 +350,7 @@
   "variable": [
     {
       "key": "base_url",
-      "value": ""
+      "value": "http://localhost:8000/api"
     }
   ]
 }
